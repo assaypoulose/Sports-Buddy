@@ -42,7 +42,7 @@ const UserLogin = ({ theme }) => {
                             placeholder="Enter your email"
                             required
                         />
-                        <p>Email: assay@gmail.com</p>
+                        <p>Email: user@gmail.com</p>
                     </div>
                     <div className="mb-10 mt-6">
                         <label className="block text-gray-950 text-sm font-bold mb-2" htmlFor="password">
@@ -57,7 +57,7 @@ const UserLogin = ({ theme }) => {
                             placeholder="Enter your password"
                             required
                         />
-                        <p>Password: assay123</p>
+                        <p>Password: user123</p>
                     </div>
                     <div className="flex items-center justify-between">
                         <button
