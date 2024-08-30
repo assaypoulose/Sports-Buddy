@@ -102,7 +102,7 @@ exports.deleteSportCategory = async (req, res) => {
         const sport = await Sport.findById(req.params.id);
         if (!sport) return res.status(404).json({ message: 'Sport not found' });
 
-        await sport.remove();
+        await sport.deleteOne();
         res.json({ message: 'Sport removed' });
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err.message });
@@ -151,7 +151,7 @@ exports.deleteLocation = async (req, res) => {
         const location = await Location.findById(req.params.id);
         if (!location) return res.status(404).json({ message: 'Location not found' });
 
-        await location.remove();
+        await location.deleteOne();
         res.json({ message: 'Location removed' });
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err.message });

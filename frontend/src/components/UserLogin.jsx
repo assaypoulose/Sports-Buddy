@@ -8,11 +8,13 @@ const UserLogin = ({ theme }) => {
     const [error, setError] = useState(null); // State for managing errors
     const navigate = useNavigate();
 
+    const baseURL = import.meta.env.VITE_BACKEND_URL;
+
     const handleLogin = async (e) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8080/api/users/login', { email, password });
+            const response = await axios.post(`${baseURL}/users/login`, { email, password });
             // Save the token to localStorage or use context to save it
             localStorage.setItem('token', response.data.token);
             // Navigate to the home page after successful login
@@ -40,8 +42,9 @@ const UserLogin = ({ theme }) => {
                             placeholder="Enter your email"
                             required
                         />
+                        <p>Email: assay@gmail.com</p>
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-10 mt-6">
                         <label className="block text-gray-950 text-sm font-bold mb-2" htmlFor="password">
                             Password
                         </label>
@@ -54,6 +57,7 @@ const UserLogin = ({ theme }) => {
                             placeholder="Enter your password"
                             required
                         />
+                        <p>Password: assay123</p>
                     </div>
                     <div className="flex items-center justify-between">
                         <button

@@ -7,6 +7,7 @@ const AdminLogin = ({theme}) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null); // State for managing errors
   const navigate = useNavigate();
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -14,7 +15,7 @@ const AdminLogin = ({theme}) => {
 
     try {
       // Send the login request to the backend
-      const response = await axios.post('http://localhost:8080/api/admin/login', { email, password });
+      const response = await axios.post(`${baseURL}/admin/login`, { email, password });
 
       // Save the token to localStorage
       localStorage.setItem('adminToken', response.data.token);

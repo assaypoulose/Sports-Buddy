@@ -14,6 +14,8 @@ const AdminDashboard = () => {
 
   const token = localStorage.getItem('adminToken');
 
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
+
   useEffect(() => {
     fetchSports();
     fetchLocations();
@@ -21,7 +23,7 @@ const AdminDashboard = () => {
 
   const fetchSports = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/admin/sports', {
+      const response = await axios.get(`${baseURL}/admin/sports`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSports(response.data);
@@ -32,7 +34,7 @@ const AdminDashboard = () => {
 
   const fetchLocations = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/admin/locations', {
+      const response = await axios.get(`${baseURL}/admin/locations`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLocations(response.data);
@@ -55,13 +57,13 @@ const AdminDashboard = () => {
     try {
       if (editingSport) {
         // Update sport
-        await axios.put(`http://localhost:8080/api/admin/sports/${editingSport._id}`, newSport, {
+        await axios.put(`${baseURL}/admin/sports/${editingSport._id}`, newSport, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setSports(sports.map((sport) => (sport._id === editingSport._id ? newSport : sport)));
       } else {
         // Create new sport
-        const response = await axios.post('http://localhost:8080/api/admin/sports', newSport, {
+        const response = await axios.post(`${baseURL}/admin/sports`, newSport, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setSports([...sports, response.data]);
@@ -79,13 +81,13 @@ const AdminDashboard = () => {
     try {
       if (editingLocation) {
         // Update location
-        await axios.put(`http://localhost:8080/api/admin/locations/${editingLocation._id}`, newLocation, {
+        await axios.put(`${baseURL}/admin/locations/${editingLocation._id}`, newLocation, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setLocations(locations.map((location) => (location._id === editingLocation._id ? newLocation : location)));
       } else {
         // Create new location
-        const response = await axios.post('http://localhost:8080/api/admin/locations', newLocation, {
+        const response = await axios.post(`${baseURL}/admin/locations`, newLocation, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setLocations([...locations, response.data]);
@@ -109,7 +111,7 @@ const AdminDashboard = () => {
 
   const handleDeleteSport = async (sportId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/admin/sports/${sportId}`, {
+      await axios.delete(`${baseURL}/admin/sports/${sportId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setSports(sports.filter((sport) => sport._id !== sportId));
@@ -120,7 +122,7 @@ const AdminDashboard = () => {
 
   const handleDeleteLocation = async (locationId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/admin/locations/${locationId}`, {
+      await axios.delete(`${baseURL}/admin/locations/${locationId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setLocations(locations.filter((location) => location._id !== locationId));

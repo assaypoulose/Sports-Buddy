@@ -9,6 +9,8 @@ const UserDashboard = () => {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
+
   // Fetch user's events
   useEffect(() => {
     const fetchData = async () => {
@@ -16,7 +18,7 @@ const UserDashboard = () => {
         const token = localStorage.getItem('token');
         if (!token) throw new Error('No token found, authorization required');
 
-        const response = await axios.get('http://localhost:8080/api/users/events', {
+        const response = await axios.get(`${baseURL}/users/events`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setEvents(response.data);
@@ -51,14 +53,14 @@ const UserDashboard = () => {
     try {
       if (editingEvent) {
         // Update the event
-        const response = await axios.put(`http://localhost:8080/api/users/events/${editingEvent._id}`, eventData, {
+        const response = await axios.put(`${baseURL}/users/events/${editingEvent._id}`, eventData, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setEvents(events.map((e) => (e._id === editingEvent._id ? response.data : e)));
         setEditingEvent(null);
       } else {
         // Create a new event
-        const response = await axios.post('http://localhost:8080/api/users/events', eventData, {
+        const response = await axios.post(`${baseURL}/users/event`, eventData, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setEvents([...events, response.data]);
@@ -72,7 +74,7 @@ const UserDashboard = () => {
   // Delete an event
   const handleDeleteEvent = async (eventId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/users/events/${eventId}`, {
+      await axios.delete(`${baseURL}/users/events/${eventId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       setEvents(events.filter((e) => e._id !== eventId));

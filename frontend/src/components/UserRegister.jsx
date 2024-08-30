@@ -7,12 +7,13 @@ const UserRegister = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const baseURL = import.meta.env.VITE_BACKEND_URL;
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
     try {
-      await axios.post('http://localhost:8080/api/users/register', { username, email, password });
+      await axios.post(`${baseURL}/users/register`, { username, email, password });
       // After successful registration, navigate to login page
       navigate('/login/user');
     } catch (error) {
