@@ -60,7 +60,7 @@ const UserDashboard = () => {
         setEditingEvent(null);
       } else {
         // Create a new event
-        const response = await axios.post(`${baseURL}/users/event`, eventData, {
+        const response = await axios.post(`${baseURL}/users/events`, eventData, {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
         setEvents([...events, response.data]);
